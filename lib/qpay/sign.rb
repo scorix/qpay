@@ -1,17 +1,17 @@
 module Qpay
   class << self
-    def sign(params, config, nonce_str = random_string)
-      Digest::MD5.hexdigest(string_params_without_sign(params, config, nonce_str)).upcase
+    def sign(params, config)
+      Digest::MD5.hexdigest(string_params_without_sign(params, config)).upcase
     end
 
-    def string_params_without_sign(params, config, nonce_str = random_string)
-      sorted_params = preprocess_params(params, nonce_str).sort_by { |k, _| k }
+    def string_params_without_sign(params, config)
+      sorted_params = preprocess_params(params).sort_by { |k, _| k }
       (sorted_params << ['key', config.api_key]).map { |x| x.join('=') }.join('&')
     end
 
-    def params_with_sign(params, config, nonce_str = random_string)
-      params_dup = preprocess_params(params, nonce_str)
-      params_dup.merge('sign' => Qpay.sign(params, config, nonce_str))
+    def params_with_sign(params, config)
+      params_dup = preprocess_params(params)
+      params_dup.merge('sign' => Qpay.sign(params, config))
     end
 
     private
@@ -19,7 +19,7 @@ module Qpay
       SecureRandom.urlsafe_base64.tr('-_', '')
     end
 
-    def preprocess_params(params, nonce_str)
+    def preprocess_params(params)
       params_dup = params.dup
       stringified_keys_params = {}
       params_dup.each do |k, v|
@@ -27,13 +27,6 @@ module Qpay
         stringified_keys_params[k.to_s] = v
       end
       stringified_keys_params.delete('key')
-      if stringified_keys_params.has_key?('nonce_str')
-        stringified_keys_params['nonce_str'] ||= nonce_str
-      elsif stringified_keys_params.has_key?('noncestr')
-        stringified_keys_params['noncestr'] ||= nonce_str
-      else
-        stringified_keys_params['nonce_str'] = nonce_str
-      end
       stringified_keys_params
     end
 
