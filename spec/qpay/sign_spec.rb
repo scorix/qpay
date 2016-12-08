@@ -66,4 +66,14 @@ describe Qpay do
       end
     end
   end
+
+  describe "#sign_app" do
+    let(:params) { {appId: "100619284", nonce: "ksjfwierwfjk", tokenId: "1000000002", pubAcc: nil, bargainorId: "1900000109"} }
+    let(:config) { Qpay::Config.new(appid: '100619284',
+                                    mch_id: '1900000109',
+                                    api_key: 'd139ae6fb0175e5659dce2a7c1fe84d5') }
+    it "should sign the params" do
+      expect(Qpay.sign_app(params, config)).to eql "c6xXw0tNABhOMc869h1bfxTp9Mk="
+    end
+  end
 end
