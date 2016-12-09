@@ -143,7 +143,7 @@ module Qpay
 
     private
     def request_params(params)
-      params.merge!(appid: @config.appid, mch_id: @config.mch_id)
+      params.merge!(appid: @config.appid, mch_id: @config.mch_id, nonce_str: SecureRandom.urlsafe_base64)
       to_xml(Qpay.params_with_sign(params, @config))
     end
 
