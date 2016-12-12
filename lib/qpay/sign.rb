@@ -6,7 +6,7 @@ module Qpay
 
     # https://qpay.qq.com/qpaywiki/showdocument.php?pid=38&docid=165
     def sign_app(params, config)
-      key = "#{config.api_key}&"
+      key = "#{config.app_key}&"
       data = preprocess_params(params, keep_blank: true).sort_by { |k, _| k }.map { |x| x.join('=') }.join('&')
       digest = OpenSSL::Digest.new('sha1')
       hmac = OpenSSL::HMAC.digest(digest, key, data)
