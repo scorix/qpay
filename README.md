@@ -1,28 +1,45 @@
 # Qpay
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/qpay`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+QQ 钱包支付
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'qpay'
+gem 'qpay', github: "scorix/qpay"
 ```
 
 And then execute:
 
     $ bundle
 
-Or install it yourself as:
-
-    $ gem install qpay
-
 ## Usage
 
-TODO: Write usage instructions here
+### New a client
+
+```
+client = Qpay::Client.new(appid: 'wxd930ea5d5a258f4f', mch_id: '10000100', api_key: '192006250b4c09247ec02edce69f6a2d')
+```
+
+### [统一下单](https://qpay.qq.com/qpaywiki/showdocument.php?pid=38&docid=58)
+
+```
+client.unifiedorder(body, out_trade_no, total_fee, spbill_create_ip, notify_url)
+```
+
+### [订单查询](https://qpay.qq.com/qpaywiki/showdocument.php?pid=38&docid=60)
+
+```
+client.orderquery(out_trade_no)
+```
+
+or
+
+```
+# use transaction_id first
+client.orderquery(out_trade_no, transaction_id: transaction_id)
+```
 
 ## Development
 
@@ -32,7 +49,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-1. Fork it ( https://github.com/[my-github-username]/qpay/fork )
+1. Fork it ( https://github.com/scorix/qpay/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
