@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
   spec.name          = 'qpay'
   spec.version       = Qpay::VERSION
   spec.authors       = ['scorix']
-  spec.email         = ['scorix@liulishuo.com']
+  spec.email         = ['scorix@gmail.com']
 
   spec.summary       = %q{A gem for payment in qpay.}
   spec.description   = %q{api doc: https://qpay.qq.com/qpaywiki/showdocument.php?pid=38&docid=58}
