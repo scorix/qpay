@@ -7,7 +7,7 @@ module Qpay
       @config = Config.new
       @config.appid = options[:appid]
       @config.mch_id = options[:mch_id]
-      @config.app_secret = options[:app_secret]
+      @config.app_key = options[:app_key]
       @config.api_key = options[:api_key]
       @config.cert_type = options[:cert_type]
       @config.cert_file = options[:cert_file]
