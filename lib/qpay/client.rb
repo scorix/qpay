@@ -135,7 +135,7 @@ module Qpay
     #   3、对账单中涉及金额的字段单位为“元”；
     #   4、对账单接口只能下载三个月以内的对账单。
     def downloadbill(bill_date, more_params = {})
-      params = more_params.merge(bill_date: Time.parse(bill_date.to_s).strftime('%Y%m%d'))
+      params = {bill_type: "ALL"}.merge(more_params).merge(bill_date: Time.parse(bill_date.to_s).strftime('%Y%m%d'))
 
       # csv data
       api.post("/sp_download/qpay_mch_statement_down.cgi", request_params(params), format: :csv)
